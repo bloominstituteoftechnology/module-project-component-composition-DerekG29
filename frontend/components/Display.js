@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 
 function Display({ date, desc, title, url, type }) {
   return (
@@ -14,7 +14,9 @@ function Display({ date, desc, title, url, type }) {
             allowFullScreen
             title={title}
           />
-          : <img src='https://api.nasa.gov/assets/img/general/apod.jpg' />
+          : <img
+            src={url}
+          />
         }
       </div>
       <p>{desc}</p>
