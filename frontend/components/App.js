@@ -1,34 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Display from './Display';
+import Card from './Card';
+import styled from 'styled-components';
+import dummy_data from '../data/dummy_data';
 
 const API_KEY = 'DEMO_KEY';
 const URL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`
 
+const StyledApp = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 function App() {
-  const [data, setData] = useState(null);
+  const [apod, setApod] = useState(null);
 
   useEffect(() => {
     function fetchAPOD() {
       axios.get(URL)
         .then(res => {
-          setData(res.data);
+          setApod(res.data);
         })
         .catch(err => console.error(err))
     }
     fetchAPOD();
   }, [])
 
-  if (!data) return <h2>Fetching Photo of the day...</h2>
-
   return (
-    <Display
-      date={data.date}
-      desc={data.explanation}
-      title={data.title}
-      url={data.url}
-      type={data.media_type}
-    />
+    <StyledApp>
+      <Card apod={apod} />
+    </StyledApp>
   )
 }
 
